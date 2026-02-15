@@ -35,7 +35,7 @@ app.all('*', async (req, res) => {
     throw new NotfoundError();
 })
 app.use(errorHandler)
-
+console.log("tesst added")
 const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error("key not found")
