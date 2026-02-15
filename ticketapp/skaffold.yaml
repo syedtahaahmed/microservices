@@ -1,0 +1,54 @@
+# apiVersion: skaffold/v4beta3
+# kind: Config
+# manifests:
+#   rawYaml:
+#     - ./infra/k8s/*
+# build:
+#   local:
+#     push: false
+#   artifacts:
+#     - image: rallycoding/auth
+#       context: auth
+#       docker:
+#         dockerfile: Dockerfile
+#       sync:
+#         manual:
+#           - src: 'src/**/*.ts'
+#             dest: .
+
+
+apiVersion: skaffold/v4beta3
+kind: Config
+
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+
+build:
+  local:
+    push: true
+    useDockerCLI: true
+  artifacts:
+    - image: syedtaha2905/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+    - image: syedtaha2905/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - src: 'src/**/*.ts'
+      #       dest: .
+
+# --- Add this port forwarding section ---
+portForward:
+  - resourceType: service
+    resourceName: auth-srv    # must match your Service name in Kubernetes
+    port: 3000
+    localPort: 3000
+  - resourceType: service
+    resourceName: tickets-srv    # must match your Service name in Kubernetes
+    port: 3000
+    localPort: 3000

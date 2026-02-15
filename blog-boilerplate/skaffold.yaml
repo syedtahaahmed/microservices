@@ -1,0 +1,74 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+
+# metadata:
+#   name: posts
+
+# build:
+#   local:
+#     push: false        # set true if using remote cluster
+#   artifacts:
+#     - image: syedtaha2905/posts
+#       context: .
+#       docker:
+#         dockerfile: Dockerfile
+#       sync:
+#         manual:
+#           - src: "src/**/*.js"
+#             dest: .
+
+# manifests:
+#   rawYaml:
+#     - ./infa/k8s/*
+
+deploy:
+  kubectl:
+    manifests:
+      - ./infa/k8s/*
+
+build:
+  local:
+    push: false        # set true if using remote cluster
+  artifacts:
+    - image: syedtaha2905/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: syedtaha2905/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: syedtaha2905/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: syedtaha2905/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: syedtaha2905/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+        
+
